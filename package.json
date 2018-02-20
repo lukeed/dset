@@ -1,0 +1,37 @@
+{
+  "name": "deepset",
+  "version": "0.0.0",
+  "description": "WIP",
+  "repository": "lukeed/deepset",
+  "umd:main": "dist/deepset.min.js",
+  "module": "dist/deepset.es.js",
+  "main": "dist/deepset.js",
+  "license": "MIT",
+  "author": {
+    "name": "Luke Edwards",
+    "email": "luke.edwards05@gmail.com",
+    "url": "lukeed.com"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "build": "node builder",
+    "pretest": "npm run build",
+    "test": "tape test/*.js | tap-spec"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "deepset"
+  ],
+  "devDependencies": {
+    "gzip-size": "^3.0.0",
+    "pretty-bytes": "^4.0.2",
+    "rollup": "^0.52.0",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.8.0",
+    "uglify-js": "^3.2.0"
+  }
+}
