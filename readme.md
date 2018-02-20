@@ -7,6 +7,7 @@ This module exposes two module definitions:
 * **ES Module**: `dist/deepset.es.js`
 * **CommonJS**: `dist/deepset.js`
 
+For _accessing_ deep object properties, please see [`dlv`](https://github.com/developit/dlv).
 
 ## Install
 
