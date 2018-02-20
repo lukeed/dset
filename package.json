@@ -1,9 +1,8 @@
 {
   "name": "deepset",
   "version": "0.0.0",
-  "description": "WIP",
   "repository": "lukeed/deepset",
-  "umd:main": "dist/deepset.min.js",
+  "description": "A tiny (145B) utility for safely writing deep Object values~!",
   "module": "dist/deepset.es.js",
   "main": "dist/deepset.js",
   "license": "MIT",
@@ -24,7 +23,13 @@
     "dist"
   ],
   "keywords": [
-    "deepset"
+    "deepset",
+    "values",
+    "object",
+    "write",
+    "deep",
+    "safe",
+    "set"
   ],
   "devDependencies": {
     "gzip-size": "^3.0.0",
