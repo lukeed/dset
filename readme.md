@@ -1,50 +1,49 @@
-# deepset [![Build Status](https://travis-ci.org/lukeed/deepset.svg?branch=master)](https://travis-ci.org/lukeed/deepset)
+# dset [![Build Status](https://travis-ci.org/lukeed/dset.svg?branch=master)](https://travis-ci.org/lukeed/dset)
 
 > A tiny (135B) utlity for safely writing deep Object values~!
 
 This module exposes two module definitions:
 
-* **ES Module**: `dist/deepset.es.js`
-* **CommonJS**: `dist/deepset.js`
+* **ES Module**: `dist/dset.es.js`
+* **CommonJS**: `dist/dset.js`
 
 For _accessing_ deep object properties, please see [`dlv`](https://github.com/developit/dlv).
 
 ## Install
 
 ```
-$ npm install --save lukeed/deepset
-#=> (temporary!) installs from github
+$ npm install --save dset
 ```
 
 
 ## Usage
 
 ```js
-const deepset = require('deepset');
+const dset = require('dset');
 
 let foo = { a:1, b:2 };
 let bar = { foo:123, bar:[4, 5, 6], baz:{} };
 let baz = { a:1, b:{ x:{ y:{ z:999 } } }, c:3 };
 
-deepset(foo, 'd.e.f', 'hello');
-// or ~> deepset(foo, ['d', 'e', 'f'], 'hello');
+dset(foo, 'd.e.f', 'hello');
+// or ~> dset(foo, ['d', 'e', 'f'], 'hello');
 console.log(foo);
 //=> { a:1, b:2, d:{ e:{ f:'hello' } } };
 
-deepset(bar, 'bar.1', 999);
-// or ~> deepset(bar, ['bar', 1], 999);
+dset(bar, 'bar.1', 999);
+// or ~> dset(bar, ['bar', 1], 999);
 console.log(bar);
 //=> { foo:123, bar:[4, 999, 6], baz:{} };
 
-deepset(baz, 'b.x.j.k', 'mundo');
-deepset(baz, 'b.x.y.z', 'hola');
+dset(baz, 'b.x.j.k', 'mundo');
+dset(baz, 'b.x.y.z', 'hola');
 console.log(baz);
 //=> { a:1, b:{ x:{ y:{ z:'hola' }, j:{ k:'mundo' } } }, c:3 }
 ```
 
 ## API
 
-### deepset(obj, path, val)
+### dset(obj, path, val)
 
 Returns: `void`
 
