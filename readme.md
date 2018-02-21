@@ -12,7 +12,8 @@ For _accessing_ deep object properties, please see [`dlv`](https://github.com/de
 ## Install
 
 ```
-$ npm install --save deepset
+$ npm install --save lukeed/deepset
+#=> (temporary!) installs from github
 ```
 
 
