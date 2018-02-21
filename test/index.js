@@ -1,7 +1,7 @@
 const test = require('tape');
-const fn = require('../dist/deepset');
+const fn = require('../dist/dset');
 
-test('deepset', t => {
+test('dset', t => {
 	let foo = { a:1, b:2 };
 
 	t.is(typeof fn, 'function', 'exports a function');
