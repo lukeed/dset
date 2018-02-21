@@ -1,10 +1,7 @@
-export default function (obj, keys, val) {
-	keys.split && (keys=keys.split('.'));
-	var i=0, j, o, x, len=keys.length;
-	while (i < len) {
-		o = obj;
-		for (j=0; j < i; j++) o=o[keys[j]];
-		x = (o[keys[i]] == null) ? {} : o[keys[i]];
-		o[keys[i]] = (++i === len) ? val : x;
+export default function (o, k, v) {
+	k.split && (k=k.split('.'));
+	var i = 0, l = k.length, t = o;
+	for(; i < l; ++i) {
+		t = t[k[i]] = (i === l - 1 ? v : (t[k[i]] || {}));
 	}
 }
