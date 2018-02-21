@@ -1,7 +1,8 @@
-export default function (o, k, v) {
-	k.split && (k=k.split('.'));
-	var i = 0, l = k.length, t = o;
-	for(; i < l; ++i) {
-		t = t[k[i]] = (i === l - 1 ? v : (t[k[i]] || {}));
+export default function (obj, keys, val) {
+	keys.split && (keys=keys.split('.'));
+	var i=0, l=keys.length, t=obj, x;
+	for (; i < l; ++i) {
+		x = t[keys[i]];
+		t = t[keys[i]] = (i === l - 1 ? val : (x == null ? {} : x));
 	}
 }
