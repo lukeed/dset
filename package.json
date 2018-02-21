@@ -1,10 +1,10 @@
 {
-  "name": "deepset",
+  "name": "dset",
   "version": "0.0.0",
-  "repository": "lukeed/deepset",
+  "repository": "lukeed/dset",
   "description": "A tiny (135B) utility for safely writing deep Object values~!",
-  "module": "dist/deepset.es.js",
-  "main": "dist/deepset.js",
+  "module": "dist/dset.es.js",
+  "main": "dist/dset.js",
   "license": "MIT",
   "author": {
     "name": "Luke Edwards",
