@@ -17,5 +17,8 @@ test('deepset', t => {
 	t.is(foo.d.a.x.y, 456, 'refuses to convert existing non-object value into object');
 	fn(foo, 'd.a.x.z', [1,2,3,4]); // preserve object tree, with array value
 	t.same(foo.d.a, { b:123, x:{y:456,z:[1,2,3,4]} }, 'mutates; writes into existing object w/ array value');
+	// Change?
+	t.throws(_ => fn(foo, 'b.c.d.e', 123), /TypeError/, 'throws if trying to nest within non-object value');
+	t.throws(_ => fn({ a:1, b:0, c:2 }, 'b.a.s.d', 123), /TypeError/, 'throws while respecting `0` as a value');
 	t.end();
 });

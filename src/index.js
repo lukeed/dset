@@ -4,7 +4,7 @@ export default function (obj, keys, val) {
 	while (i < len) {
 		o = obj;
 		for (j=0; j < i; j++) o=o[keys[j]];
-		x = o[keys[i]] || {};
+		x = (o[keys[i]] == null) ? {} : o[keys[i]];
 		o[keys[i]] = (++i === len) ? val : x;
 	}
 }
