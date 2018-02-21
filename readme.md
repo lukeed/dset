@@ -1,6 +1,6 @@
 # deepset [![Build Status](https://travis-ci.org/lukeed/deepset.svg?branch=master)](https://travis-ci.org/lukeed/deepset)
 
-> A tiny (150B) utlity for safely writing deep Object values~!
+> A tiny (135B) utlity for safely writing deep Object values~!
 
 This module exposes two module definitions:
 

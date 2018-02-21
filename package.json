@@ -2,7 +2,7 @@
   "name": "deepset",
   "version": "0.0.0",
   "repository": "lukeed/deepset",
-  "description": "A tiny (150B) utility for safely writing deep Object values~!",
+  "description": "A tiny (135B) utility for safely writing deep Object values~!",
   "module": "dist/deepset.es.js",
   "main": "dist/deepset.js",
   "license": "MIT",
