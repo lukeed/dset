@@ -41,8 +41,8 @@ dset(baz, 'b.x.y.z', 'hola');
 console.log(baz);
 //=> { a:1, b:{ x:{ y:{ z:'hola' }, j:{ k:'mundo' } } }, c:3 }
 
-dset(qux, 'a.0.b.0', 1);
-dset(qux, 'a.0.b.1', 2);
+dset(qux, 'a.0.b.0', 1, true);
+dset(qux, 'a.0.b.1', 2, true);
 console.log(qux);
 //=> { a: [{ b: [1, 2] }] }
 ```
