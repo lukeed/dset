@@ -1,8 +1,2 @@
-module.exports = function (obj, keys, val) {
-	keys.split && (keys=keys.split('.'));
-	var i=0, l=keys.length, t=obj, x;
-	for (; i < l; ++i) {
-		x = t[keys[i]];
-		t = t[keys[i]] = (i === l - 1 ? val : (x == null ? {} : x));
-	}
-}
+module.exports=function(l,t,n,r){t.split&&(t=t.split("."));for(var s,a=0,e=t.length,i=l;a<e;++a){var o=!r||isNaN(parseInt(t[a+1],10))?{}:[];s=i[t[a]],i=i[t[a]]=a===e-1?n:null==s?o:s}};
+//# sourceMappingURL=dset.js.map
