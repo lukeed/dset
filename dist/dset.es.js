@@ -1,2 +1,9 @@
-export default function(t,l,a,n){l.split&&(l=l.split("."));for(var r,e=0,i=l.length,p=t;e<i;++e){var s=!n||isNaN(parseInt(l[e+1],10))?{}:[];r=p[l[e]],p=p[l[e]]=e===i-1?a:null==r?s:r}};
-//# sourceMappingURL=dset.es.js.map
+export default function (obj, keys, val, arr) {
+	keys.split && (keys=keys.split('.'));
+	var i=0, l=keys.length, t=obj, x;
+	for (; i < l; ++i) {
+		var n = !arr || isNaN(+keys[i + 1]) ? {} : [];
+		x = t[keys[i]];
+		t = t[keys[i]] = (i === l - 1 ? val : (x == null ? n : x));
+	}
+}
