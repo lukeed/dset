@@ -3,6 +3,8 @@
   "version": "1.0.1",
   "repository": "lukeed/dset",
   "description": "A tiny (144B) utility for safely writing deep Object values~!",
+  "unpkg": "dist/dset.min.js",
+  "umd:main": "dist/dset.min.js",
   "module": "dist/dset.es.js",
   "main": "dist/dset.js",
   "license": "MIT",

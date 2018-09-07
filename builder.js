@@ -21,4 +21,10 @@ mkdir('dist').then(_ => {
 	const { code } = minify(data);
 	const int = sizer.sync(code);
 	console.log(`> gzip size: ${pretty(int)}`);
+
+	// Write UMD bundle
+	const name = 'dset';
+	let UMD = `!function(e,t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t():"function"==typeof define&&define.amd?define(t):e.${name}=t()}(this,function(){`;
+	UMD += code.replace(/module.exports=/, 'return ') + '});';
+	fs.writeFileSync(pkg.unpkg, UMD);
 });
