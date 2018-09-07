@@ -16,7 +16,7 @@ test('dset', t => {
 	fn(foo, ['d', 'a', 'b'], 123); // change via array
 	t.is(foo.d.a.b, 123, 'mutates; changes the value via array-type keys');
 
-	fn(foo, 'e.0.0', 1, true); // create arrays instead of objects
+	fn(foo, 'e.0.0', 1); // create arrays instead of objects
 	t.is(foo.e[0][0], 1, 'mutates; can create arrays via flag and when next key is numeric');
 
 	fn(foo, 'd.a.x.y', 456); // preserve existing structure
