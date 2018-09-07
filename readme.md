@@ -41,15 +41,15 @@ dset(baz, 'b.x.y.z', 'hola');
 console.log(baz);
 //=> { a:1, b:{ x:{ y:{ z:'hola' }, j:{ k:'mundo' } } }, c:3 }
 
-dset(qux, 'a.0.b.0', 1, true);
-dset(qux, 'a.0.b.1', 2, true);
+dset(qux, 'a.0.b.0', 1);
+dset(qux, 'a.0.b.1', 2);
 console.log(qux);
 //=> { a: [{ b: [1, 2] }] }
 ```
 
 ## API
 
-### dset(obj, path, val, arr)
+### dset(obj, path, val)
 
 Returns: `void`
 
@@ -67,19 +67,13 @@ The key path that should receive the value. May be in `x.y.z` or `['x', 'y', 'z'
 
 > **Note:** Please be aware that only the _last_ key actually receives the value!
 
-> **Important:** New Objects are created at each segment if there is not an existing structure.
+> **Important:** New Objects are created at each segment if there is not an existing structure.<br>When numerical-types are encounted, Arrays are created instead!
 
 #### value
 
 Type: `Any`
 
 The value that you want to set. Can be of any type!
-
-#### arr
-
-Type: `Boolean`
-
-True if you want to create arrays when numeric keys are encountered.
 
 
 ## License
