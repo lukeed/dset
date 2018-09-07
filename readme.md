@@ -1,6 +1,6 @@
 # dset [![Build Status](https://travis-ci.org/lukeed/dset.svg?branch=master)](https://travis-ci.org/lukeed/dset)
 
-> A tiny (161B) utility for safely writing deep Object values~!
+> A tiny (144B) utility for safely writing deep Object values~!
 
 This module exposes two module definitions:
 
