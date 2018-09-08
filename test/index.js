@@ -2,38 +2,61 @@ const test = require('tape');
 const fn = require('../dist/dset');
 
 test('dset', t => {
-	let foo = { a:1, b:2 };
-
 	t.is(typeof fn, 'function', 'exports a function');
 
+	let foo = { a:1, b:2 };
 	let out = fn(foo, 'c', 3); // add c
 	t.is(out, undefined, 'does not return output');
 	t.same(foo, { a:1, b:2, c:3 }, 'mutates; adds simple key:val');
 
-	fn(foo, 'd.a.b', 999); // add deep
-	t.same(foo, { a:1, b:2, c:3, d:{ a:{ b:999 } } }, 'mutates; adds deeply nested key:val');
+	foo = {};
+	fn(foo, 'a.b.c', 999); // add deep
+	t.same(foo, { a:{ b:{ c:999 } } }, 'mutates; adds deeply nested key:val');
 
-	fn(foo, ['d', 'a', 'b'], 123); // change via array
-	t.is(foo.d.a.b, 123, 'mutates; changes the value via array-type keys');
+	foo = {};
+	fn(foo, ['a', 'b', 'c'], 123); // change via array
+	t.same(foo, { a:{ b:{ c:123 } } }, 'mutates; changes the value via array-type keys');
 
-	fn(foo, 'e.0.0', 1); // create arrays instead of objects
-	t.is(foo.e[0][0], 1, 'mutates; can create arrays via flag and when next key is numeric');
+	foo = { a:1 };
+	fn(foo, 'e.0.0', 2); // create arrays instead of objects
+	t.is(foo.e[0][0], 2, 'mutates; can create arrays when key is numeric');
+	t.same(foo, { a: 1, e:[[2]] });
+	t.true(Array.isArray(foo.e));
 
-	fn(foo, 'd.a.x.y', 456); // preserve existing structure
-	t.same(foo.d, { a:{ b:123, x:{y:456} }}, 'mutates; writes into/preserves existing object');
+	foo = { a:{ b:{ c:123 } } };
+	fn(foo, 'a.b.x.y', 456); // preserve existing structure
+	t.same(foo, { a:{ b:{ c:123, x:{ y:456 } }} }, 'mutates; writes into/preserves existing object');
 
-	fn(foo, 'd.a.x.y.z', 'hello'); // preserve non-object value, won't alter
-	t.is(foo.d.a.x.y, 456, 'refuses to convert existing non-object value into object');
+	foo = { a: { b:123 } };
+	fn(foo, 'a.b.c', 'hello'); // preserve non-object value, won't alter
+	t.is(foo.a.b, 123, 'refuses to convert existing non-object value into object');
+	t.same(foo, { a: { b:123 }});
 
-	fn(foo, 'd.a.x.z', [1,2,3,4]); // preserve object tree, with array value
-	t.same(foo.d.a, { b:123, x:{y:456,z:[1,2,3,4]} }, 'mutates; writes into existing object w/ array value');
+	foo = { a:{ b:{ c:123, d:{ e:5 } } } };
+	fn(foo, 'a.b.d.z', [1,2,3,4]); // preserve object tree, with array value
+	t.same(foo.a.b.d, { e:5, z:[1,2,3,4] }, 'mutates; writes into existing object w/ array value');
 
+	foo = { b:123 };
 	t.doesNotThrow(_ => fn(foo, 'b.c.d.e', 123), undefined, 'silently preserves existing non-null value');
-	t.is(foo.b, 2, 'preserves existing value');
+	t.is(foo.b, 123, 'preserves existing value');
 
-	let bar = { a:1, b:0, c:2 };
-	t.doesNotThrow(_ => fn(bar, 'b.a.s.d', 123), undefined, 'silently preserves `0` as existing non-null value');
-	t.same(bar, { a:1, b:0, c:2 }, 'preserves existing object values');
+	foo = { b:0 };
+	t.doesNotThrow(_ => fn(foo, 'b.a.s.d', 123), undefined, 'silently preserves `0` as existing non-null value');
+	t.same(foo, { b:0 }, 'preserves existing object values');
+
+	foo = {};
+	fn(foo, ['x', 'y', 'z'], 123);
+	t.same(foo, { x:{ y:{ z:123 } } });
+
+	foo = {};
+	fn(foo, ['x', '1', 'z'], 123);
+	t.same(foo, { x:[,{ z:123 }] });
+	t.true(Array.isArray(foo.x));
+
+	foo = {};
+	fn(foo, ['x', '10.2', 'z'], 123);
+	t.same(foo, { x:{ '10.2':{ z:123 } } });
+	t.false(Array.isArray(foo.x));
 
 	t.end();
 });
