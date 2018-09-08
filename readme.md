@@ -1,11 +1,12 @@
 # dset [![Build Status](https://travis-ci.org/lukeed/dset.svg?branch=master)](https://travis-ci.org/lukeed/dset)
 
-> A tiny (144B) utility for safely writing deep Object values~!
+> A tiny (161B) utility for safely writing deep Object values~!
 
 This module exposes two module definitions:
 
 * **ES Module**: `dist/dset.es.js`
 * **CommonJS**: `dist/dset.js`
+* **UMD**: `dist/dset.min.js`
 
 For _accessing_ deep object properties, please see [`dlv`](https://github.com/developit/dlv).
 
