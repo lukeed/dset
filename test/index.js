@@ -49,9 +49,19 @@ test('dset', t => {
 	t.same(foo, { x:{ y:{ z:123 } } });
 
 	foo = {};
+	fn(foo, ['x', '0', 'z'], 123);
+	t.same(foo, { x:[{ z:123 }] });
+	t.true(Array.isArray(foo.x));
+
+	foo = {};
 	fn(foo, ['x', '1', 'z'], 123);
 	t.same(foo, { x:[,{ z:123 }] });
 	t.true(Array.isArray(foo.x));
+
+	foo = {};
+	fn(foo, ['x', '10.0', 'z'], 123);
+	t.same(foo, { x:{ '10.0':{ z:123 } } });
+	t.false(Array.isArray(foo.x));
 
 	foo = {};
 	fn(foo, ['x', '10.2', 'z'], 123);
