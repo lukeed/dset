@@ -1,6 +1,6 @@
 # dset [![Build Status](https://travis-ci.org/lukeed/dset.svg?branch=master)](https://travis-ci.org/lukeed/dset)
 
-> A tiny (161B) utility for safely writing deep Object values~!
+> A tiny (160B) utility for safely writing deep Object values~!
 
 This module exposes two module definitions:
 
@@ -48,6 +48,25 @@ console.log(qux);
 //=> { a: [{ b: [1, 2] }] }
 ```
 
+## Mutability
+
+As shown in the examples above, all `dset` interactions mutate the source object.
+
+If you need immutable writes, please visit [`clean-set`](https://github.com/fwilkerson/clean-set) (182B).<br>
+Alternatively, you may pair `dset` with [`klona`](https://github.com/lukeed/klona), a 366B utility to clone your source(s). Here's an example pairing:
+
+```js
+import klona from 'klona';
+import dset from 'dset';
+
+export function deepset(obj, path, val) {
+  let copy = klona(obj);
+  dset(copy, path, val);
+  return copy;
+}
+```
+
+
 ## API
 
 ### dset(obj, path, val)
@@ -75,6 +94,19 @@ The key path that should receive the value. May be in `x.y.z` or `['x', 'y', 'z'
 Type: `Any`
 
 The value that you want to set. Can be of any type!
+
+
+## Benchmarks
+
+For benchmark results, check out the [`bench`](/bench) directory!
+
+
+## Related
+
+- [dlv](https://github.com/developit/dlv) - safely read from deep properties in 120 bytes
+- [dequal](https://github.com/lukeed/dequal) - safely check for deep equality in 247 bytes
+- [klona](https://github.com/lukeed/klona) - quickly "deep clone" data in 200 to 330 bytes
+- [clean-set](https://github.com/fwilkerson/clean-set) - fast, immutable version of `dset` in 182 bytes
 
 
 ## License
