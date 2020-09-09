@@ -4,7 +4,7 @@
     "benchmark": "2.1.4",
     "clean-set": "1.1.1",
     "deep-set": "1.0.1",
-    "klona": "1.1.0",
+    "klona": "1.1.1",
     "lodash.set": "4.3.2",
     "set-value": "3.0.1"
   }
