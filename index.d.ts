@@ -1,0 +1,1 @@
+export default function <T={}>(obj: T, keys: ArrayLike<string> | string, val: unknown): void;
