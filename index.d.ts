@@ -1,1 +1,1 @@
-export default function <T={}>(obj: T, keys: ArrayLike<string> | string, val: unknown): void;
+export default function <T extends object, V>(obj: T, keys: string | string[], value: V): void;
