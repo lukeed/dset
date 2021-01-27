@@ -1,4 +1,4 @@
-# dset [![CI](https://github.com/lukeed/dset/workflows/CI/badge.svg)](https://github.com/lukeed/dset/actions?query=workflow%3ACI) [![codecov](https://badgen.net/codecov/c/github/lukeed/dset)](https://codecov.io/gh/lukeed/dset)
+# dset [![CI](https://github.com/lukeed/dset/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/lukeed/dset/actions) [![codecov](https://badgen.net/codecov/c/github/lukeed/dset)](https://codecov.io/gh/lukeed/dset)
 
 > A tiny (160B) utility for safely writing deep Object values~!
 
