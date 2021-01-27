@@ -270,14 +270,37 @@ pollution('should ignore "prototype" assignment', () => {
 	);
 });
 
-pollution('should ignore "constructor" assignment', () => {
+pollution('should ignore "constructor" assignment :: direct', () => {
 	let input = { a: 123 };
-	let before = input.a.constructor;
 
-	dset(input, 'a.constructor', 'world');
-	assert.equal(input.a.constructor, before);
-	assert.equal(input, { a: 123 });
-	assert.equal(before, Number);
+	function Custom() {
+		//
+	}
+
+	dset(input, 'a.constructor', Custom);
+	assert.is.not(input.a.constructor, Custom);
+	assert.not.instance(input.a, Custom);
+
+	assert.instance(input.a.constructor, Object, '~> 123 -> {}');
+	assert.is(input.a.hasOwnProperty('constructor'), false);
+	assert.equal(input, { a: {} });
+});
+
+pollution('should ignore "constructor" assignment :: nested', () => {
+	let input = {};
+
+	dset(input, 'constructor.prototype.hello', 'world');
+	assert.is(input.hasOwnProperty('constructor'), false);
+	assert.is(input.hasOwnProperty('hello'), true);
+
+	assert.equal(input, {
+		hello: 'world'
+	});
+
+	assert.is(
+		JSON.stringify(input),
+		'{"hello":"world"}'
+	);
 });
 
 pollution.run();
