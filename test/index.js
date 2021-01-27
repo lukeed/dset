@@ -1,6 +1,6 @@
-const { suite } = require('uvu');
-const assert = require('uvu/assert');
-const dset = require('../dist/dset');
+import { suite } from 'uvu';
+import * as assert from 'uvu/assert';
+import dset from '../src';
 
 const API = suite('API');
 

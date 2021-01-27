@@ -22,16 +22,15 @@ jobs:
       if: matrix.nodejs >= 14
       run: npm install -g c8
 
-    # - name: Build
-    #   run: npm run build
+    - name: Build
+      run: npm run build
 
     - name: Test
       run: npm test
       if: matrix.nodejs < 14
 
     - name: (coverage) Test
-      # run: c8 --include=src npm test
-      run: c8 npm test
+      run: c8 --include=src npm test
       if: matrix.nodejs >= 14
 
     - name: (coverage) Report
