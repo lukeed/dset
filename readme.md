@@ -1,4 +1,4 @@
-# dset [![Build Status](https://travis-ci.org/lukeed/dset.svg?branch=master)](https://travis-ci.org/lukeed/dset)
+# dset [![CI](https://github.com/lukeed/dset/workflows/CI/badge.svg)](https://github.com/lukeed/dset/actions?query=workflow%3ACI) [![codecov](https://badgen.net/codecov/c/github/lukeed/dset)](https://codecov.io/gh/lukeed/dset)
 
 > A tiny (160B) utility for safely writing deep Object values~!
 
