@@ -14,10 +14,10 @@ Validation:
   ✔ dset
 
 Benchmark:
-  deep-set     x 1,894,926 ops/sec ±2.51% (88 runs sampled)
-  set-value    x 2,208,207 ops/sec ±2.79% (92 runs sampled)
-  lodash/set   x 1,271,022 ops/sec ±1.34% (90 runs sampled)
-  dset         x 2,217,614 ops/sec ±0.55% (96 runs sampled)
+  deep-set     x 1,545,526 ops/sec ±1.49% (89 runs sampled)
+  set-value    x 1,704,871 ops/sec ±2.81% (92 runs sampled)
+  lodash/set   x   995,789 ops/sec ±1.66% (91 runs sampled)
+  dset         x 1,757,022 ops/sec ±0.12% (97 runs sampled)
 ```
 
 #### Immutable
