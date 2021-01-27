@@ -172,20 +172,22 @@ preserves('should preserve existing object structure', () => {
 	});
 });
 
-preserves('should not convert existing non-object values into object', () => {
+preserves('should overwrite existing non-object values as object', () => {
 	let input = {
 		a: {
 			b: 123
 		}
 	};
 
-	let before = JSON.stringify(input);
 	dset(input, 'a.b.c', 'hello');
 
-	assert.is(
-		JSON.stringify(input),
-		before
-	);
+	assert.equal(input, {
+		a: {
+			b: {
+				c: 'hello'
+			}
+		}
+	});
 });
 
 preserves('should preserve existing object tree w/ array value', () => {
@@ -206,26 +208,6 @@ preserves('should preserve existing object tree w/ array value', () => {
 		e: 5,
 		z: [1,2,3,4]
 	});
-});
-
-preserves('should not throw when refusing to convert non-object into object', () => {
-	try {
-		let input = { b:123 };
-		dset(input, 'b.c.d.e', 123);
-		assert.is(input.b, 123);
-	} catch (err) {
-		assert.unreachable('should not have thrown');
-	}
-});
-
-preserves('should not throw when refusing to convert `0` into object', () => {
-	try {
-		let input = { b:0 };
-		dset(input, 'b.a.s.d', 123);
-		assert.equal(input, { b: 0 });
-	} catch (err) {
-		assert.unreachable('should not have thrown');
-	}
 });
 
 preserves.run();
@@ -274,8 +256,18 @@ pollution('should ignore "prototype" assignment', () => {
 	dset(input, 'a.prototype.hello', 'world');
 
 	assert.is(input.a.prototype, undefined);
-	assert.is.not(input.a.hello, 'world');
-	assert.equal(input, { a: 123 });
+	assert.is(input.a.hello, 'world');
+
+	assert.equal(input, {
+		a: {
+			hello: 'world'
+		}
+	});
+
+	assert.is(
+		JSON.stringify(input),
+		'{"a":{"hello":"world"}}'
+	);
 });
 
 pollution('should ignore "constructor" assignment', () => {
