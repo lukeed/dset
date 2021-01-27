@@ -19,7 +19,6 @@
   },
   "scripts": {
     "build": "bundt",
-    "pretest": "npm run build",
     "test": "uvu -r esm test"
   },
   "files": [
