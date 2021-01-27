@@ -1,4 +1,4 @@
-const assert = require('assert');
+const assert = require('uvu/assert');
 const { Suite } = require('benchmark');
 
 const contenders = {
@@ -13,7 +13,7 @@ Object.keys(contenders).forEach(name => {
 	try {
 		const input = {};
 		contenders[name](input, 'x.y.z', 'foobar');
-		assert.deepStrictEqual(input, {
+		assert.equal(input, {
 			x: {
 				y: {
 					z: 'foobar'
@@ -35,6 +35,7 @@ const bench = new Suite({ onCycle });
 Object.keys(contenders).forEach(name => {
 	bench.add(name + ' '.repeat(12 - name.length), () => {
 		contenders[name]({}, 'x.y.z', 'foobar');
+		contenders[name]({}, 'x.a.b.c', 'howdy');
 	});
 });
 

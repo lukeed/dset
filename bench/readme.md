@@ -1,6 +1,6 @@
 ## Benchmarks – Node.js
 
-Below are the results while running this directory's suites on my machine with Node.js v10.13.0:
+Below are the results while running this directory's suites on my machine with Node.js `v10.13.0`:
 
 #### Mutable
 
@@ -14,10 +14,10 @@ Validation:
   ✔ dset
 
 Benchmark:
-  deep-set     x 4,130,930 ops/sec ±2.30% (92 runs sampled)
-  set-value    x 4,905,191 ops/sec ±3.03% (91 runs sampled)
-  lodash/set   x 2,566,991 ops/sec ±0.99% (95 runs sampled)
-  dset         x 4,191,060 ops/sec ±0.24% (95 runs sampled)
+  deep-set     x 1,894,926 ops/sec ±2.51% (88 runs sampled)
+  set-value    x 2,208,207 ops/sec ±2.79% (92 runs sampled)
+  lodash/set   x 1,271,022 ops/sec ±1.34% (90 runs sampled)
+  dset         x 2,217,614 ops/sec ±0.55% (96 runs sampled)
 ```
 
 #### Immutable
@@ -30,6 +30,6 @@ Validation:
   ✔ dset-klona
 
 Benchmark:
-  clean-set    x 5,771,347 ops/sec ±0.23% (96 runs sampled)
-  dset-klona   x 3,726,300 ops/sec ±1.53% (93 runs sampled)
+  clean-set    x 2,631,929 ops/sec ±2.88% (89 runs sampled)
+  dset-klona   x 1,950,732 ops/sec ±2.11% (92 runs sampled)
 ```

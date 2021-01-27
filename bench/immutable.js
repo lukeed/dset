@@ -1,6 +1,6 @@
-const klona = require('klona');
-const assert = require('assert');
+const assert = require('uvu/assert');
 const { Suite } = require('benchmark');
+const { klona } = require('klona/json');
 const dset = require('../dist/dset');
 
 const contenders = {
@@ -18,8 +18,8 @@ Object.keys(contenders).forEach(name => {
 		const input = {};
 		const output = contenders[name](input, 'x.y.z', 'foobar');
 
-		assert.notEqual(output, input, 'new object');
-		assert.deepStrictEqual(output, {
+		assert.is.not(output === input, 'new object');
+		assert.equal(output, {
 			x: {
 				y: {
 					z: 'foobar'
@@ -28,7 +28,7 @@ Object.keys(contenders).forEach(name => {
 		}, 'expected output');
 
 		input.foo = 'bar';
-		assert.notEqual(output.foo, 'bar', 'detached clone');
+		assert.is.not(output.foo, 'bar', 'detached clone');
 
 		console.log('  ✔', name);
 	} catch (err) {
@@ -44,6 +44,7 @@ const bench = new Suite({ onCycle });
 Object.keys(contenders).forEach(name => {
 	bench.add(name + ' '.repeat(12 - name.length), () => {
 		contenders[name]({}, 'x.y.z', 'foobar');
+		contenders[name]({}, 'x.a.b.c', 'howdy');
 	});
 });
 
