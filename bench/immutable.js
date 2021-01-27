@@ -1,7 +1,7 @@
 const assert = require('uvu/assert');
 const { Suite } = require('benchmark');
 const { klona } = require('klona/json');
-const dset = require('../dist/dset');
+const { dset } = require('../dist/dset');
 
 const contenders = {
 	'clean-set': require('clean-set'),

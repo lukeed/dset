@@ -20,7 +20,7 @@ $ npm install --save dset
 ## Usage
 
 ```js
-const dset = require('dset');
+import { dset } from 'dset';
 
 let foo = { a:1, b:2 };
 let bar = { foo:123, bar:[4, 5, 6], baz:{} };
@@ -56,8 +56,8 @@ If you need immutable writes, please visit [`clean-set`](https://github.com/fwil
 Alternatively, you may pair `dset` with [`klona`](https://github.com/lukeed/klona), a 366B utility to clone your source(s). Here's an example pairing:
 
 ```js
-import klona from 'klona';
-import dset from 'dset';
+import { klona } from 'klona';
+import { dset } from 'dset';
 
 export function deepset(obj, path, val) {
   let copy = klona(obj);
