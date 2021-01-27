@@ -1,72 +1,74 @@
-const test = require('tape');
-const fn = require('../dist/dset');
+// @ts-check
+import { test } from 'uvu';
+import * as assert from 'uvu/assert';
+import dset from '../dist/dset';
 
-test('dset', t => {
-	t.is(typeof fn, 'function', 'exports a function');
+test('dset', () => {
+	assert.type(dset, 'function', 'exports a function');
 
 	let foo = { a:1, b:2 };
-	let out = fn(foo, 'c', 3); // add c
-	t.is(out, undefined, 'does not return output');
-	t.same(foo, { a:1, b:2, c:3 }, 'mutates; adds simple key:val');
+	let out = dset(foo, 'c', 3); // add c
+	assert.is(out, undefined, 'does not return output');
+	assert.equal(foo, { a:1, b:2, c:3 }, 'mutates; adds simple key:val');
 
 	foo = {};
-	fn(foo, 'a.b.c', 999); // add deep
-	t.same(foo, { a:{ b:{ c:999 } } }, 'mutates; adds deeply nested key:val');
+	dset(foo, 'a.b.c', 999); // add deep
+	assert.equal(foo, { a:{ b:{ c:999 } } }, 'mutates; adds deeply nested key:val');
 
 	foo = {};
-	fn(foo, ['a', 'b', 'c'], 123); // change via array
-	t.same(foo, { a:{ b:{ c:123 } } }, 'mutates; changes the value via array-type keys');
+	dset(foo, ['a', 'b', 'c'], 123); // change via array
+	assert.equal(foo, { a:{ b:{ c:123 } } }, 'mutates; changes the value via array-type keys');
 
 	foo = { a:1 };
-	fn(foo, 'e.0.0', 2); // create arrays instead of objects
-	t.is(foo.e[0][0], 2, 'mutates; can create arrays when key is numeric');
-	t.same(foo, { a: 1, e:[[2]] });
-	t.true(Array.isArray(foo.e));
+	dset(foo, 'e.0.0', 2); // create arrays instead of objects
+	assert.is(foo.e[0][0], 2, 'mutates; can create arrays when key is numeric');
+	assert.equal(foo, { a: 1, e:[[2]] });
+	assert.instance(foo.e, Array);
 
 	foo = { a:{ b:{ c:123 } } };
-	fn(foo, 'a.b.x.y', 456); // preserve existing structure
-	t.same(foo, { a:{ b:{ c:123, x:{ y:456 } }} }, 'mutates; writes into/preserves existing object');
+	dset(foo, 'a.b.x.y', 456); // preserve existing structure
+	assert.equal(foo, { a:{ b:{ c:123, x:{ y:456 } }} }, 'mutates; writes into/preserves existing object');
 
 	foo = { a: { b:123 } };
-	fn(foo, 'a.b.c', 'hello'); // preserve non-object value, won't alter
-	t.is(foo.a.b, 123, 'refuses to convert existing non-object value into object');
-	t.same(foo, { a: { b:123 }});
+	dset(foo, 'a.b.c', 'hello'); // preserve non-object value, won't alter
+	assert.is(foo.a.b, 123, 'refuses to convert existing non-object value into object');
+	assert.equal(foo, { a: { b:123 }});
 
 	foo = { a:{ b:{ c:123, d:{ e:5 } } } };
-	fn(foo, 'a.b.d.z', [1,2,3,4]); // preserve object tree, with array value
-	t.same(foo.a.b.d, { e:5, z:[1,2,3,4] }, 'mutates; writes into existing object w/ array value');
+	dset(foo, 'a.b.d.z', [1,2,3,4]); // preserve object tree, with array value
+	assert.equal(foo.a.b.d, { e:5, z:[1,2,3,4] }, 'mutates; writes into existing object w/ array value');
 
 	foo = { b:123 };
-	t.doesNotThrow(_ => fn(foo, 'b.c.d.e', 123), undefined, 'silently preserves existing non-null value');
-	t.is(foo.b, 123, 'preserves existing value');
+	assert.not.throws(_ => dset(foo, 'b.c.d.e', 123), 'silently preserves existing non-null value');
+	assert.is(foo.b, 123, 'preserves existing value');
 
 	foo = { b:0 };
-	t.doesNotThrow(_ => fn(foo, 'b.a.s.d', 123), undefined, 'silently preserves `0` as existing non-null value');
-	t.same(foo, { b:0 }, 'preserves existing object values');
+	assert.not.throws(_ => dset(foo, 'b.a.s.d', 123), 'silently preserves `0` as existing non-null value');
+	assert.equal(foo, { b:0 }, 'preserves existing object values');
 
 	foo = {};
-	fn(foo, ['x', 'y', 'z'], 123);
-	t.same(foo, { x:{ y:{ z:123 } } });
+	dset(foo, ['x', 'y', 'z'], 123);
+	assert.equal(foo, { x:{ y:{ z:123 } } });
 
 	foo = {};
-	fn(foo, ['x', '0', 'z'], 123);
-	t.same(foo, { x:[{ z:123 }] });
-	t.true(Array.isArray(foo.x));
+	dset(foo, ['x', '0', 'z'], 123);
+	assert.equal(foo, { x:[{ z:123 }] });
+	assert.instance(foo.x, Array);
 
 	foo = {};
-	fn(foo, ['x', '1', 'z'], 123);
-	t.same(foo, { x:[,{ z:123 }] });
-	t.true(Array.isArray(foo.x));
+	dset(foo, ['x', '1', 'z'], 123);
+	assert.equal(foo, { x:[,{ z:123 }] });
+	assert.instance(foo.x, Array);
 
 	foo = {};
-	fn(foo, ['x', '10.0', 'z'], 123);
-	t.same(foo, { x:{ '10.0':{ z:123 } } });
-	t.false(Array.isArray(foo.x));
+	dset(foo, ['x', '10.0', 'z'], 123);
+	assert.equal(foo, { x:{ '10.0':{ z:123 } } });
+	assert.not.instance(foo.x, Array);
 
 	foo = {};
-	fn(foo, ['x', '10.2', 'z'], 123);
-	t.same(foo, { x:{ '10.2':{ z:123 } } });
-	t.false(Array.isArray(foo.x));
-
-	t.end();
+	dset(foo, ['x', '10.2', 'z'], 123);
+	assert.equal(foo, { x:{ '10.2':{ z:123 } } });
+	assert.not.instance(foo.x, Array);
 });
+
+test.run();
