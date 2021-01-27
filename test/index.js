@@ -71,6 +71,24 @@ keys('should add value to key path :: nested :: array', () => {
 	});
 });
 
+keys('should create Array via integer key :: string', () => {
+	let input = {};
+	dset(input, ['foo', '0'], 123);
+	assert.instance(input.foo, Array);
+	assert.equal(input, {
+		foo: [123]
+	})
+});
+
+keys('should create Array via integer key :: number', () => {
+	let input = {};
+	dset(input, ['foo', 0], 123);
+	assert.instance(input.foo, Array);
+	assert.equal(input, {
+		foo: [123]
+	})
+});
+
 keys.run();
 
 // ---
@@ -117,7 +135,7 @@ arrays('should create arrays with hole(s) if needed', () => {
 	});
 });
 
-arrays('should create object from decimal-like key :: array :: zero', () => {
+arrays('should create object from decimal-like key :: array :: zero :: string', () => {
 	let input = {};
 	dset(input, ['x', '10.0', 'z'], 123);
 	assert.not.instance(input.x, Array);
@@ -128,6 +146,16 @@ arrays('should create object from decimal-like key :: array :: zero', () => {
 			}
 		}
 	});
+});
+
+arrays('should create array from decimal-like key :: array :: zero :: number', () => {
+	let input = {};
+	dset(input, ['x', 10.0, 'z'], 123);
+	assert.instance(input.x, Array);
+
+	let x = Array(10);
+	x.push({ z: 123 });
+	assert.equal(input, { x });
 });
 
 arrays('should create object from decimal-like key :: array :: nonzero', () => {
