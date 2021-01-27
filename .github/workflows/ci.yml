@@ -30,7 +30,8 @@ jobs:
       if: matrix.nodejs < 14
 
     - name: (coverage) Test
-      run: c8 --include=src npm test
+      # run: c8 --include=src npm test
+      run: c8 npm test
       if: matrix.nodejs >= 14
 
     - name: (coverage) Report
