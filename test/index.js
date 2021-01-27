@@ -229,3 +229,63 @@ preserves('should not throw when refusing to convert `0` into object', () => {
 });
 
 preserves.run();
+
+// ---
+
+const pollution = suite('pollution');
+
+pollution('should protect against "__proto__" assignment', () => {
+	let input = { abc: 123 };
+	let before = input.__proto__;
+	dset(input, '__proto__.hello', 123);
+
+	assert.equal(input.__proto__, before);
+	assert.equal(input, {
+		abc: 123,
+		hello: 123
+	});
+
+	assert.is.not({}.hello, 123);
+	assert.is.not((new Object).hello, 123);
+	assert.is.not(Object.create(null).hello, 123);
+});
+
+pollution('should protect against "__proto__" assignment :: nested', () => {
+	let input = { abc: 123 };
+	let before = input.__proto__;
+	dset(input, ['xyz', '__proto__', 'hello'], 123);
+
+	assert.equal(input.__proto__, before);
+	assert.equal(input, {
+		abc: 123,
+		xyz: {
+			hello: 123
+		}
+	});
+
+	assert.is({}.hello, undefined);
+	assert.is(input.hello, undefined);
+	assert.is((new Object).hello, undefined);
+	assert.is(Object.create(null).hello, undefined);
+});
+
+pollution('should ignore "prototype" assignment', () => {
+	let input = { a: 123 };
+	dset(input, 'a.prototype.hello', 'world');
+
+	assert.is(input.a.prototype, undefined);
+	assert.is.not(input.a.hello, 'world');
+	assert.equal(input, { a: 123 });
+});
+
+pollution('should ignore "constructor" assignment', () => {
+	let input = { a: 123 };
+	let before = input.a.constructor;
+
+	dset(input, 'a.constructor', 'world');
+	assert.equal(input.a.constructor, before);
+	assert.equal(input, { a: 123 });
+	assert.equal(before, Number);
+});
+
+pollution.run();
