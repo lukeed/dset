@@ -19,7 +19,8 @@
   },
   "scripts": {
     "build": "bundt",
-    "test": "uvu -r esm test"
+    "pretest": "npm run build",
+    "test": "uvu test"
   },
   "files": [
     "*.d.ts",
@@ -36,7 +37,6 @@
   ],
   "devDependencies": {
     "bundt": "1.1.2",
-    "esm": "3.2.25",
     "uvu": "0.5.1"
   }
 }

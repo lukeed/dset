@@ -22,8 +22,8 @@ jobs:
       if: matrix.nodejs >= 14
       run: npm install -g c8
 
-    - name: Build
-      run: npm run build
+    # - name: Build
+    #   run: npm run build
 
     - name: Test
       run: npm test
