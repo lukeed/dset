@@ -1,4 +1,4 @@
-export default function (obj, keys, val) {
+export function dset(obj, keys, val) {
 	keys.split && (keys=keys.split('.'));
 	var i=0, l=keys.length, t=obj, x, k;
 	for (; i < l;) {

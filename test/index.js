@@ -1,6 +1,6 @@
 import { suite } from 'uvu';
 import * as assert from 'uvu/assert';
-import dset from '../src';
+import { dset } from '../src';
 
 const API = suite('API');
 
