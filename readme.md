@@ -16,10 +16,6 @@ $ npm install --save dset
 ```js
 import { dset } from 'dset';
 
-let bar = { foo:123, bar:[4, 5, 6], baz:{} };
-let baz = { a:1, b:{ x:{ y:{ z:999 } } }, c:3 };
-let qux = { };
-
 let foo = { abc: 123 };
 dset(foo, 'foo.bar', 'hello');
 // or: dset(foo, ['foo', 'bar'], 'hello');
