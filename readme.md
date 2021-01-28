@@ -2,17 +2,11 @@
 
 > A tiny (196B) utility for safely writing deep Object values~!
 
-This module exposes two module definitions:
-
-* **ES Module**: `dist/dset.es.js`
-* **CommonJS**: `dist/dset.js`
-* **UMD**: `dist/dset.min.js`
-
 For _accessing_ deep object properties, please see [`dlv`](https://github.com/developit/dlv).
 
 ## Install
 
-```
+```sh
 $ npm install --save dset
 ```
 
@@ -22,33 +16,59 @@ $ npm install --save dset
 ```js
 import { dset } from 'dset';
 
-let foo = { a:1, b:2 };
 let bar = { foo:123, bar:[4, 5, 6], baz:{} };
 let baz = { a:1, b:{ x:{ y:{ z:999 } } }, c:3 };
 let qux = { };
 
-dset(foo, 'd.e.f', 'hello');
-// or ~> dset(foo, ['d', 'e', 'f'], 'hello');
+let foo = { abc: 123 };
+dset(foo, 'foo.bar', 'hello');
+// or: dset(foo, ['foo', 'bar'], 'hello');
 console.log(foo);
-//=> { a:1, b:2, d:{ e:{ f:'hello' } } };
+//=> {
+//=>   abc: 123,
+//=>   foo: { bar: 'hello' },
+//=> }
 
+dset(foo, 'abc.hello', 'world');
+// or: dset(foo, ['abc', 'hello'], 'world');
+console.log(foo);
+//=> {
+//=>   abc: { hello: 'world' },
+//=>   foo: { bar: 'hello' },
+//=> }
+
+let bar = { a: { x: 7 }, b:[1, 2, 3] };
 dset(bar, 'bar.1', 999);
-// or ~> dset(bar, ['bar', 1], 999);
+// or: dset(bar, ['bar', 1], 999);
+// or: dset(bar, ['bar', '1'], 999);
 console.log(bar);
-//=> { foo:123, bar:[4, 999, 6], baz:{} };
+//=> {
+//=>   a: { x: 7 },
+//=>   bar: [1, 999, 3],
+//=> }
 
-dset(baz, 'b.x.j.k', 'mundo');
-dset(baz, 'b.x.y.z', 'hola');
+dset(bar, 'a.y.0', 8);
+// or: dset(bar, ['a', 'y', 0], 8);
+// or: dset(bar, ['a', 'y', '0'], 8);
+console.log(bar);
+//=> {
+//=>   a: {
+//=>     x: 7,
+//=>     y: [8],
+//=>   },
+//=>   bar: [1, 999, 3],
+//=> }
+
+let baz = {};
+dset(baz, 'a.0.b.0', 1);
+dset(baz, 'a.0.b.1', 2);
 console.log(baz);
-//=> { a:1, b:{ x:{ y:{ z:'hola' }, j:{ k:'mundo' } } }, c:3 }
-
-dset(qux, 'a.0.b.0', 1);
-dset(qux, 'a.0.b.1', 2);
-console.log(qux);
-//=> { a: [{ b: [1, 2] }] }
+//=> {
+//=>   a: [{ b: [1, 2] }]
+//=> }
 ```
 
-## Mutability
+## Immutability
 
 As shown in the examples above, all `dset` interactions mutate the source object.
 
@@ -87,7 +107,7 @@ The key path that should receive the value. May be in `x.y.z` or `['x', 'y', 'z'
 
 > **Note:** Please be aware that only the _last_ key actually receives the value!
 
-> **Important:** New Objects are created at each segment if there is not an existing structure.<br>When numerical-types are encounted, Arrays are created instead!
+> **Important:** New Objects are created at each segment if there is not an existing structure.<br>However, when integers are encounted, Arrays are created instead!
 
 #### value
 
@@ -98,7 +118,21 @@ The value that you want to set. Can be of any type!
 
 ## Benchmarks
 
-For benchmark results, check out the [`bench`](/bench) directory!
+For benchmarks and full results, check out the [`bench`](/bench) directory!
+
+```
+# Node 10.13.0
+
+Validation:
+  ✔ set-value
+  ✔ lodash/set
+  ✔ dset
+
+Benchmark:
+  set-value    x 1,701,821 ops/sec ±1.81% (93 runs sampled)
+  lodash/set   x   975,530 ops/sec ±0.96% (91 runs sampled)
+  dset         x 1,797,922 ops/sec ±0.32% (94 runs sampled)
+```
 
 
 ## Related
