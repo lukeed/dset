@@ -3,7 +3,7 @@ export function dset(obj, keys, val) {
 	var i=0, l=keys.length, t=obj, x, k;
 	for (; i < l;) {
 		k = keys[i++];
-		if (k === '__proto__' || k === 'constructor' || k === 'prototype') continue;
+		if (k === '__proto__' || k === 'constructor' || k === 'prototype') break;
 		t = t[k] = (i === l) ? val : (typeof(x=t[k])===typeof(keys)) ? x : (keys[i]*0 !== 0 || !!~(''+keys[i]).indexOf('.')) ? {} : [];
 	}
 }

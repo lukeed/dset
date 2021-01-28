@@ -251,8 +251,7 @@ pollution('should protect against "__proto__" assignment', () => {
 
 	assert.equal(input.__proto__, before);
 	assert.equal(input, {
-		abc: 123,
-		hello: 123
+		abc: 123
 	});
 
 	assert.is.not({}.hello, 123);
@@ -269,7 +268,7 @@ pollution('should protect against "__proto__" assignment :: nested', () => {
 	assert.equal(input, {
 		abc: 123,
 		xyz: {
-			hello: 123
+			// empty
 		}
 	});
 
@@ -284,17 +283,17 @@ pollution('should ignore "prototype" assignment', () => {
 	dset(input, 'a.prototype.hello', 'world');
 
 	assert.is(input.a.prototype, undefined);
-	assert.is(input.a.hello, 'world');
+	assert.is(input.a.hello, undefined);
 
 	assert.equal(input, {
 		a: {
-			hello: 'world'
+			// converted, then aborted
 		}
 	});
 
 	assert.is(
 		JSON.stringify(input),
-		'{"a":{"hello":"world"}}'
+		'{"a":{}}'
 	);
 });
 
@@ -319,16 +318,11 @@ pollution('should ignore "constructor" assignment :: nested', () => {
 
 	dset(input, 'constructor.prototype.hello', 'world');
 	assert.is(input.hasOwnProperty('constructor'), false);
-	assert.is(input.hasOwnProperty('hello'), true);
+	assert.is(input.hasOwnProperty('hello'), false);
 
 	assert.equal(input, {
-		hello: 'world'
+		// empty
 	});
-
-	assert.is(
-		JSON.stringify(input),
-		'{"hello":"world"}'
-	);
 });
 
 pollution.run();
