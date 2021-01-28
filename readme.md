@@ -1,6 +1,6 @@
 # dset [![CI](https://github.com/lukeed/dset/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/lukeed/dset/actions)
 
-> A tiny (195B) utility for safely writing deep Object values~!
+> A tiny (196B) utility for safely writing deep Object values~!
 
 This module exposes two module definitions:
 
