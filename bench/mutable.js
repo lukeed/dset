@@ -5,7 +5,7 @@ const contenders = {
 	'deep-set': require('deep-set'),
 	'set-value': require('set-value'),
 	'lodash/set': require('lodash/set'),
-	'dset': require('../dist/dset').dset,
+	'dset': require('../dist').dset,
 };
 
 console.log('Validation: ');
