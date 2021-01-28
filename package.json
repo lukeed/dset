@@ -2,13 +2,20 @@
   "name": "dset",
   "version": "2.1.0",
   "repository": "lukeed/dset",
-  "unpkg": "dist/dset.min.js",
-  "umd:main": "dist/dset.min.js",
-  "module": "dist/dset.es.js",
-  "main": "dist/dset.js",
   "description": "A tiny (196B) utility for safely writing deep Object values~!",
+  "unpkg": "dist/index.min.js",
+  "umd:main": "dist/index.min.js",
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
   "types": "index.d.ts",
   "license": "MIT",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "author": {
     "name": "Luke Edwards",
     "email": "luke.edwards05@gmail.com",
