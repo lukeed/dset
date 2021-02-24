@@ -32,6 +32,9 @@
     "*.d.ts",
     "dist"
   ],
+  "modes": {
+    "default": "src/index.js"
+  },
   "keywords": [
     "deepset",
     "values",
