@@ -1,11 +1,11 @@
-export function merge(a, b) {
+export function merge(a, b, k) {
 	if (typeof a === 'object' && typeof b === 'object')  {
 		if (Array.isArray(a) && Array.isArray(b)) {
-			for (let i=0; i < b.length; i++) {
-				a[i] = merge(a[i], b[i]);
+			for (k=0; k < b.length; k++) {
+				a[k] = merge(a[k], b[k]);
 			}
 		} else {
-			for (let k in b) {
+			for (k in b) {
 				a[k] = merge(a[k], b[k]);
 			}
 		}
@@ -23,4 +23,3 @@ export function dset(obj, keys, val) {
 		t = t[k] = (i === l) ? merge(t[k],val) : (typeof(x=t[k])===typeof keys) ? x : (keys[i]*0 !== 0 || !!~(''+keys[i]).indexOf('.')) ? {} : [];
 	}
 }
-
