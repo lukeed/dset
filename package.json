@@ -14,6 +14,10 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
+    "./merge": {
+      "import": "./merge/index.mjs",
+      "require": "./merge/index.js"
+    },
     "./package.json": "./package.json"
   },
   "author": {
@@ -30,9 +34,11 @@
   },
   "files": [
     "*.d.ts",
+    "merge",
     "dist"
   ],
   "modes": {
+    "merge": "src/merge.js",
     "default": "src/index.js"
   },
   "keywords": [
