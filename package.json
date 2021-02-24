@@ -30,7 +30,7 @@
   },
   "scripts": {
     "build": "bundt",
-    "test": "uvu -r esm test"
+    "test": "uvu test -r esm -i suites"
   },
   "files": [
     "*.d.ts",
