@@ -4,10 +4,32 @@
 
 For _accessing_ deep object properties, please see [`dlv`](https://github.com/developit/dlv).
 
+> **Using GraphQL?** You may want `dset/merge` – see [Merging](#merging) for more info.
+
 ## Install
 
 ```sh
 $ npm install --save dset
+```
+
+## Modes
+
+There are two "versions" of `dset` available:
+
+#### `dset`
+> **Size (gzip):** 196 bytes<br>
+> **Availability:** [CommonJS](https://unpkg.com/dset/dist/index.js), [ES Module](https://unpkg.com/dset/dist/index.mjs), [UMD](https://unpkg.com/dset/dist/index.min.js)
+
+```js
+import { dset } from 'dset';
+```
+
+#### `dset/merge`
+> **Size (gzip):** 289 bytes<br>
+> **Availability:** [CommonJS](https://unpkg.com/dset/merge/index.js), [ES Module](https://unpkg.com/dset/merge/index.mjs), [UMD](https://unpkg.com/dset/merge/index.min.js)
+
+```js
+import { dset } from 'dset/merge';
 ```
 
 
@@ -64,6 +86,39 @@ console.log(baz);
 //=> }
 ```
 
+## Merging
+
+The main/default `dset` module forcibly writes values at the assigned key-path. However, in some cases, you may prefer to _merge_ values at the key-path. For example, when using [GraphQL's `@stream` and `@defer` directives](https://foundation.graphql.org/news/2020/12/08/improving-latency-with-defer-and-stream-directives/), you will need to merge the response chunks into a single object/list. This is why `dset/merge` exists~!
+
+Below is a quick illustration of the difference between `dset` and `dset/merge`:
+
+```js
+let input = {
+  hello: {
+    abc: 123
+  }
+};
+
+dset(input, 'hello', { world: 123 });
+console.log(input);
+
+// via `dset`
+//=> {
+//=>   hello: {
+//=>     world: 123
+//=>   }
+//=> }
+
+// via `dset/merge`
+//=> {
+//=>   hello: {
+//=>     abc: 123,
+//=>     world: 123
+//=>   }
+//=> }
+```
+
+
 ## Immutability
 
 As shown in the examples above, all `dset` interactions mutate the source object.
@@ -72,8 +127,8 @@ If you need immutable writes, please visit [`clean-set`](https://github.com/fwil
 Alternatively, you may pair `dset` with [`klona`](https://github.com/lukeed/klona), a 366B utility to clone your source(s). Here's an example pairing:
 
 ```js
-import { klona } from 'klona';
 import { dset } from 'dset';
+import { klona } from 'klona';
 
 export function deepset(obj, path, val) {
   let copy = klona(obj);
