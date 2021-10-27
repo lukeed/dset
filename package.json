@@ -2,7 +2,7 @@
   "name": "dset",
   "version": "3.1.0",
   "repository": "lukeed/dset",
-  "description": "A tiny (196B) utility for safely writing deep Object values~!",
+  "description": "A tiny (194B) utility for safely writing deep Object values~!",
   "unpkg": "dist/index.min.js",
   "umd:main": "dist/index.min.js",
   "module": "dist/index.mjs",
