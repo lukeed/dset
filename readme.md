@@ -56,13 +56,13 @@ console.log(foo);
 //=> }
 
 let bar = { a: { x: 7 }, b:[1, 2, 3] };
-dset(bar, 'bar.1', 999);
-// or: dset(bar, ['bar', 1], 999);
-// or: dset(bar, ['bar', '1'], 999);
+dset(bar, 'b.1', 999);
+// or: dset(bar, ['b', 1], 999);
+// or: dset(bar, ['b', '1'], 999);
 console.log(bar);
 //=> {
 //=>   a: { x: 7 },
-//=>   bar: [1, 999, 3],
+//=>   b: [1, 999, 3],
 //=> }
 
 dset(bar, 'a.y.0', 8);
@@ -74,7 +74,7 @@ console.log(bar);
 //=>     x: 7,
 //=>     y: [8],
 //=>   },
-//=>   bar: [1, 999, 3],
+//=>   b: [1, 999, 3],
 //=> }
 
 let baz = {};
