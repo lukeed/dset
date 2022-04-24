@@ -20,6 +20,6 @@ export function dset(obj, keys, val) {
 	while (i < l) {
 		k = keys[i++];
 		if (k === '__proto__' || k === 'constructor' || k === 'prototype') break;
-		t = t[k] = (i === l) ? merge(t[k],val) : (typeof(x=t[k])===typeof keys) ? x : (keys[i]*0 !== 0 || !!~(''+keys[i]).indexOf('.')) ? {} : [];
+    t = t[k] = (i === l) ? merge(t[k],val) : ((x = t[k]) && typeof x === typeof keys) ? x : (k = '+' + keys[i]) * 0 !== 0 || /\./.test(k) ? {} : [];
 	}
 }

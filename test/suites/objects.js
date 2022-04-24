@@ -91,5 +91,25 @@ export default function (dset, isMerge) {
 		}
 	});
 
+  objects(`should ${verb} empty string property`, () => {
+    let { input } = prepare({});
+
+    dset(input, ['hello', ''], 123);
+
+    assert.equal(input, {
+      hello: { '': 123 },
+    });
+  });
+
+  objects(`should ${verb} null values`, () => {
+    let { input } = prepare({ hello: null });
+
+    dset(input, ['hello', 'a'], 123);
+
+    assert.equal(input, {
+      hello: { a: 123 },
+    });
+  });
+
 	objects.run();
 }
