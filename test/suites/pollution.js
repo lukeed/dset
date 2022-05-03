@@ -85,5 +85,18 @@ export default function (dset) {
 		});
 	});
 
+	// Test for CVE-2022-25645 - CWE-1321 
+	pollution(
+		"should ignore JSON.parse crafted object including __proto__ :: provided by snyk",
+		() => {
+			var a = { b: { c: 1 } };
+			assert.is(a.polluted, undefined);
+			assert.is({}.polluted, undefined);
+			dset(a, "b", JSON.parse('{"__proto__":{"polluted":"Yes!"}}')); //Needs to craft payload with JSON.parse to keep the object key proto
+			assert.is(a.polluted, undefined);
+			assert.is({}.polluted, undefined);
+		}
+	);
+
 	pollution.run();
 }

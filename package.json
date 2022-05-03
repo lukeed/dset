@@ -51,8 +51,8 @@
     "set"
   ],
   "devDependencies": {
-    "bundt": "1.1.2",
+    "bundt": "1.1.5",
     "esm": "3.2.25",
-    "uvu": "0.5.1"
+    "uvu": "0.5.3"
   }
 }
