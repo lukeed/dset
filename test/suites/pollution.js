@@ -85,5 +85,15 @@ export default function (dset) {
 		});
 	});
 
+	// Test for CVE-2022-25645 - CWE-1321 
+	pollution('should ignore JSON.parse crafted object with "__proto__" key', () => {
+		let a = { b: { c: 1 } };
+		assert.is(a.polluted, undefined);
+		assert.is({}.polluted, undefined);
+		dset(a, "b", JSON.parse('{"__proto__":{"polluted":"Yes!"}}'));
+		assert.is(a.polluted, undefined);
+		assert.is({}.polluted, undefined);
+	});
+
 	pollution.run();
 }
