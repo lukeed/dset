@@ -18,6 +18,7 @@
       "require": {
         "types": "./index.d.ts",
         "default": "./dist/index.js"
+      }
     },
     "./merge": {
       "import": {
