@@ -11,12 +11,23 @@
   "license": "MIT",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./index.d.ts",
+        "default": "./dist/index.js"
     },
     "./merge": {
-      "import": "./merge/index.mjs",
-      "require": "./merge/index.js"
+      "import": {
+        "types": "./merge/index.d.ts",
+        "default": "./merge/index.mjs"
+      },  
+      "require": {
+        "types": "./merge/index.d.ts",
+        "default": "./merge/index.js"
+      }
     },
     "./package.json": "./package.json"
   },
