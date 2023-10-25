@@ -1,10 +1,7 @@
 {
   "name": "dset",
   "version": "3.1.2",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lukeed/dset.git"
-  },
+  "repository": "lukeed/dset",
   "description": "A tiny (194B) utility for safely writing deep Object values~!",
   "unpkg": "dist/index.min.js",
   "umd:main": "dist/index.min.js",
