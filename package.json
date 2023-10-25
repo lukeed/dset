@@ -11,10 +11,12 @@
   "license": "MIT",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./merge": {
+      "types": "./merge/index.d.ts",
       "import": "./merge/index.mjs",
       "require": "./merge/index.js"
     },
