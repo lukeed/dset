@@ -1,7 +1,10 @@
 {
-  "name": "dset",
-  "version": "3.1.2",
-  "repository": "lukeed/dset",
+  "name": "@akkuma/dset",
+  "version": "3.1.4",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akkuma/dset.git"
+  },
   "description": "A tiny (194B) utility for safely writing deep Object values~!",
   "unpkg": "dist/index.min.js",
   "umd:main": "dist/index.min.js",
@@ -11,24 +14,14 @@
   "license": "MIT",
   "exports": {
     ".": {
-      "import": {
-        "types": "./index.d.ts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./index.d.ts",
-        "default": "./dist/index.js"
-      }
+      "types": "./index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./index.d.ts"
     },
     "./merge": {
-      "import": {
-        "types": "./merge/index.d.ts",
-        "default": "./merge/index.mjs"
-      },  
-      "require": {
-        "types": "./merge/index.d.ts",
-        "default": "./merge/index.js"
-      }
+      "types": "./merge/index.d.ts",
+      "import": "./merge/index.mjs",
+      "require": "./merge/index.js"
     },
     "./package.json": "./package.json"
   },
