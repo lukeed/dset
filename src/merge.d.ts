@@ -64,8 +64,8 @@ export function merge<T extends object, U extends object>(a: T, b: U): DeepMerge
  * in the path, they are created. The type of structure created (object or array) depends
  * on the subsequent path segment's type or content.
  *
- * To protect against prototype pollution, the operation is aborted if any segment of the path
- * is `__proto__`, `constructor`, or `prototype`.
+ * Security measures are in place to prevent prototype pollution; if the path includes `__proto__`, `constructor`,
+ * or `prototype`, the function will halt without making any changes.
  *
  * If a value already exists at the target path, it is deeply merged with the provided value
  * using the `merge` function.
@@ -88,9 +88,15 @@ export function merge<T extends object, U extends object>(a: T, b: U): DeepMerge
  * // obj2 => { a: [{ c: 'hello' }] }
  *
  * @example
+ * // Attempting to set a value using a prohibited key:
+ * const obj3 = {};
+ * dset(obj3, 'constructor.prototype.bad', 'Oops');
+ * // obj3 => {} (operation halted for security)
+ *
+ * @example
  * // Deep merging of objects
- * const obj3 = { a: { b: { existing: 456 } } };
- * dset(obj3, 'a.b', { new: 123 });
- * // obj3 => { a: { b: { existing: 456, new: 123 } } }
+ * const obj4 = { a: { b: { existing: 456 } } };
+ * dset(obj4, 'a.b', { new: 123 });
+ * // obj4 => { a: { b: { existing: 456, new: 123 } } }
  */
 export function dset<T extends object, V>(obj: T, keys: string | ArrayLike<string | number>, val: V): void;
