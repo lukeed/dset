@@ -1,6 +1,6 @@
 {
   "name": "dset",
-  "version": "3.1.3",
+  "version": "3.1.4",
   "repository": "lukeed/dset",
   "description": "A tiny (194B) utility for safely writing deep Object values~!",
   "unpkg": "dist/index.min.js",
