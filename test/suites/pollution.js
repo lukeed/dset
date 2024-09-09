@@ -38,6 +38,23 @@ export default function (dset) {
 		assert.is(Object.create(null).hello, undefined);
 	});
 
+	pollution('should protect against ["__proto__"] assignment :: implicit string', () => {
+		let input = { abc: 123 };
+		let before = input.__proto__;
+
+		dset(input, [['__proto__'], 'polluted'], true);
+
+		assert.equal(input.__proto__, before);
+		assert.equal(input, { abc: 123 });
+
+		assert.is({}.polluted, undefined);
+		assert.is(input.polluted, undefined);
+		assert.is((new Object).polluted, undefined);
+		assert.is(Object.create(null).polluted, undefined);
+	});
+
+
+
 	pollution('should ignore "prototype" assignment', () => {
 		let input = { a: 123 };
 		dset(input, 'a.prototype.hello', 'world');
@@ -85,7 +102,7 @@ export default function (dset) {
 		});
 	});
 
-	// Test for CVE-2022-25645 - CWE-1321 
+	// Test for CVE-2022-25645 - CWE-1321
 	pollution('should ignore JSON.parse crafted object with "__proto__" key', () => {
 		let a = { b: { c: 1 } };
 		assert.is(a.polluted, undefined);

@@ -1,6 +1,6 @@
 # dset [![CI](https://github.com/lukeed/dset/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/lukeed/dset/actions) [![codecov](https://badgen.net/codecov/c/github/lukeed/dset)](https://codecov.io/gh/lukeed/dset)
 
-> A tiny (194B) utility for safely writing deep Object values~!
+> A tiny (197B) utility for safely writing deep Object values~!
 
 For _accessing_ deep object properties, please see [`dlv`](https://github.com/developit/dlv).
 
@@ -17,7 +17,7 @@ $ npm install --save dset
 There are two "versions" of `dset` available:
 
 #### `dset`
-> **Size (gzip):** 194 bytes<br>
+> **Size (gzip):** 197 bytes<br>
 > **Availability:** [CommonJS](https://unpkg.com/dset/dist/index.js), [ES Module](https://unpkg.com/dset/dist/index.mjs), [UMD](https://unpkg.com/dset/dist/index.min.js)
 
 ```js
@@ -25,7 +25,7 @@ import { dset } from 'dset';
 ```
 
 #### `dset/merge`
-> **Size (gzip):** 288 bytes<br>
+> **Size (gzip):** 307 bytes<br>
 > **Availability:** [CommonJS](https://unpkg.com/dset/merge/index.js), [ES Module](https://unpkg.com/dset/merge/index.mjs), [UMD](https://unpkg.com/dset/merge/index.min.js)
 
 ```js
