@@ -91,5 +91,13 @@ export default function (dset, isMerge) {
 		}
 	});
 
+	objects(`should ${verb} into a key whose existing value is null`, () => {
+		let { input } = prepare({ hello: null });
+
+		dset(input, ['hello', 'a'], 123);
+
+		assert.equal(input, { hello: { a: 123 } });
+	});
+
 	objects.run();
 }
