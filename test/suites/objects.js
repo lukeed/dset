@@ -91,5 +91,29 @@ export default function (dset, isMerge) {
 		}
 	});
 
+	objects(`should ${verb} nested object for an empty string key, not an array`, () => {
+		let { input } = prepare({});
+
+		dset(input, ['hello', ''], 123);
+
+		assert.equal(input, {
+			hello: { '': 123 },
+		});
+
+		assert.not.instance(input.hello, Array);
+	});
+
+	objects(`should ${verb} nested object for a whitespace-only key, not an array`, () => {
+		let { input } = prepare({});
+
+		dset(input, ['hello', ' '], 'world');
+
+		assert.equal(input, {
+			hello: { ' ': 'world' },
+		});
+
+		assert.not.instance(input.hello, Array);
+	});
+
 	objects.run();
 }
