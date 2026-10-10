@@ -121,6 +121,21 @@ merges('should merge arrays together :: nested', () => {
 	assert.equal(input, output);
 });
 
+merges('should skip unsafe keys without dropping later safe properties', () => {
+	for (let key of ['__proto__', 'constructor', 'prototype']) {
+		let input = {};
+		let source = { before: 1 };
+		Object.defineProperty(source, key, { enumerable: true, value: { ignored: true } });
+		source.after = { kept: true };
+
+		let output = merge(input, source);
+		assert.equal(output, { before: 1, after: { kept: true } });
+		assert.is(output, input);
+		assert.not(Object.prototype.hasOwnProperty.call(output, key));
+		assert.is(Object.getPrototypeOf(output), Object.prototype);
+	}
+});
+
 merges.run();
 
 // ---
@@ -175,6 +190,16 @@ dsets('should merge array at path notation', () => {
 		[{ foo: [9, 2, 3]}],
 		[{ foo: [7, 8, 9]}],
 	]);
+});
+
+dsets('should merge safe siblings after unsafe keys at a path', () => {
+	let input = { value: { existing: true } };
+	let source = JSON.parse('{"__proto__":{"ignored":true},"constructor":{"ignored":true},"prototype":{"ignored":true},"safe":{"kept":true}}');
+
+	dset(input, 'value', source);
+	assert.equal(input, { value: { existing: true, safe: { kept: true } } });
+	assert.is(Object.getPrototypeOf(input.value), Object.prototype);
+	assert.is({}.ignored, undefined);
 });
 
 dsets.run();
