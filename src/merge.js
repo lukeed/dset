@@ -6,7 +6,7 @@ export function merge(a, b, k) {
 			}
 		} else {
 			for (k in b) {
-				if (k === '__proto__' || k === 'constructor' || k === 'prototype') break;
+				if (k === '__proto__' || k === 'constructor' || k === 'prototype') continue;
 				a[k] = merge(a[k], b[k]);
 			}
 		}
