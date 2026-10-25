@@ -177,6 +177,17 @@ dsets('should merge array at path notation', () => {
 	]);
 });
 
+dsets('should merge object at root', () => {
+	let input = { existing: true };
+
+	dset(input, [], { hero: { id: 'A' } });
+
+	assert.equal(input, {
+		existing: true,
+		hero: { id: 'A' }
+	});
+});
+
 dsets.run();
 
 // ---
