@@ -18,6 +18,7 @@ export function merge(a, b, k) {
 export function dset(obj, keys, val) {
 	keys.split && (keys=keys.split('.'));
 	var i=0, l=keys.length, t=obj, x, k;
+	if (!l) merge(obj,val);
 	while (i < l) {
 		k = ''+keys[i++];
 		if (k === '__proto__' || k === 'constructor' || k === 'prototype') break;
