@@ -91,5 +91,17 @@ export default function (dset, isMerge) {
 		}
 	});
 
+	objects(`should ${verb} an empty string property`, () => {
+		let input = {};
+		dset(input, ['hello', ''], 123);
+		assert.equal(input, { hello: { '': 123 } });
+	});
+
+	objects(`should ${verb} an empty string segment in a dotted path`, () => {
+		let input = {};
+		dset(input, 'hello..world', 123);
+		assert.equal(input, { hello: { '': { world: 123 } } });
+	});
+
 	objects.run();
 }
