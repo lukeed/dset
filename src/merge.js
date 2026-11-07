@@ -1,5 +1,5 @@
 export function merge(a, b, k) {
-	if (typeof a === 'object' && typeof b === 'object')  {
+	if (a && b && typeof a === 'object' && typeof b === 'object')  {
 		if (Array.isArray(a) && Array.isArray(b)) {
 			for (k=0; k < b.length; k++) {
 				a[k] = merge(a[k], b[k]);

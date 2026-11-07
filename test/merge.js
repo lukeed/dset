@@ -56,6 +56,23 @@ merges('should return `b` when either non-object', () => {
 	assert.equal(output, { b: 2 });
 });
 
+merges('should replace null with incoming object or array', () => {
+	assert.equal(merge(null, { a: 1 }), { a: 1 });
+	assert.equal(merge(null, [1, 2]), [1, 2]);
+});
+
+merges('should replace existing object or array with null', () => {
+	assert.is(merge({ a: 1 }, null), null);
+	assert.is(merge([1, 2], null), null);
+	assert.is(merge(null, null), null);
+});
+
+merges('should handle null in nested objects and arrays', () => {
+	assert.equal(merge({ a: null }, { a: { b: 2 } }), { a: { b: 2 } });
+	assert.equal(merge({ a: { b: 2 } }, { a: null }), { a: null });
+	assert.equal(merge([null, { a: 1 }], [{ a: 2 }, null]), [{ a: 2 }, null]);
+});
+
 merges('should merge objects together :: simple', () => {
 	let input =  { foo: 123 };
 	let output = merge(input, { bar: 456 });
@@ -175,6 +192,15 @@ dsets('should merge array at path notation', () => {
 		[{ foo: [9, 2, 3]}],
 		[{ foo: [7, 8, 9]}],
 	]);
+});
+
+dsets('should replace null values at the target path', () => {
+	let input = { a: { b: null } };
+	dset(input, 'a.b', { c: 2 });
+	assert.equal(input, { a: { b: { c: 2 } } });
+
+	dset(input, ['a', 'b'], null);
+	assert.equal(input, { a: { b: null } });
 });
 
 dsets.run();
