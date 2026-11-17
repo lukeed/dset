@@ -91,5 +91,29 @@ export default function (dset, isMerge) {
 		}
 	});
 
+	objects(`should ${verb} into a proxied (observable) object`, () => {
+		// Emulates a mobx deep observable: assigning a plain object stores a
+		// *different* (observable) object, so `dset` must re-read `t[k]` after
+		// writing it instead of keeping the value it just assigned.
+		// See https://github.com/lukeed/dset/issues/27
+		const observable = obj => {
+			if (obj === null || typeof obj !== 'object') return obj;
+			const copy = Array.isArray(obj) ? [...obj] : { ...obj };
+			return new Proxy(copy, {
+				set(t, k, v) {
+					return Reflect.set(t, k, (v !== null && typeof v === 'object') ? observable(v) : v);
+				},
+			});
+		};
+
+		let input = observable({});
+
+		dset(input, 'a.b.c', 1);
+
+		assert.equal(input, {
+			a: { b: { c: 1 } }
+		});
+	});
+
 	objects.run();
 }
